@@ -1,37 +1,9 @@
-## Welcome to GitHub Pages
+AgentSlang is a collection of components, created on top of the MyBlock middleware platform, which enables to build rich, distributed and fast Interactive Systems. MyBlock ensures the component-to-component communication, dealing with data transmission in an efficient way. It adds a transparent layer of communication so that AgentSlang components do not have to deal with all these concepts.
 
-You can use the [editor on GitHub](https://github.com/AgentSlang/agentslang.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+The choice of a certain Message Queue protocol implementation has been done on licence availability, popularity and performance. In particular, we benchmarked ZeroMQ over ActiveMQ, to confirm that ZeroMQ (our choice) is a faster and reliable candidate, which supports multiple connection types, different communication patterns, the possibility to send binary data and the absence of a broker component, which slows down a distributed pipeline architecture.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The [design page](pages/design.md) shows more details about the design deccisions. If you want to try this please head out to our [install guide](pages/install.md) or [API documentation](pages/api/index.md) for more details about the available components.
 
-### Markdown
+The [demos page](pages/demo.md) show current implementations and projects using the AgentSlang system.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/AgentSlang/agentslang.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Contact details and contributer information is available on the [team page](pages/team.md).
