@@ -1,1 +1,6 @@
 theme: jekyll-theme-minimal
+
+title: "AgentSlang"
+description: "A component-based system for rapid prototyping on Narrative Interractive Systems"
+
+logo: "img/agentslang-baner.png"
