@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=e1d15231039433c17555fdbc79c618ac805f985b">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Data Oriented design | AgentSlang</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Data Oriented design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A component-based system for rapid prototyping on Narrative Interractive Systems" />
+<meta property="og:description" content="A component-based system for rapid prototyping on Narrative Interractive Systems" />
+<link rel="canonical" href="http://localhost:4000/pages/design.html" />
+<meta property="og:url" content="http://localhost:4000/pages/design.html" />
+<meta property="og:site_name" content="AgentSlang" />
+<script type="application/ld+json">
+{"@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/agentslang-baner.png"}},"url":"http://localhost:4000/pages/design.html","headline":"Data Oriented design","description":"A component-based system for rapid prototyping on Narrative Interractive Systems","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container flex-banner">
+        <img src="/assets/images/agentslang-baner.png" alt="logo" width="200"/> 
+        <div style="margin-left: -10px; width: 100%">
+          <section id="downloads" style="float:right; margin-bottom: 0;">
+            
+            <a href="http://github.com/AgentSlang/agentslang.github.io" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+          </section>
+
+          <h2 style="margin-top: 70px; margin-bottom:0;">A component-based system for rapid prototyping on Narrative Interractive Systems</h2>
+        </div>
+      </div><nav class="main-menu">
+    <div class="container">
+        <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/pages/design.html">DESIGN</a></li>
+            <li><a href="/pages/install.html">INSTALL</a></li>
+            <li><a href="/pages/api">API</a></li>
+            <li><a href="/pages/demo.html">DEMO</a></li>
+            <li><a href="/pages/team.html">TEAM</a></li>
+        </ul>
+    </div>
+</nav></header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="data-oriented-design">Data Oriented design</h1>
+
+<p>Even if the formats do not have to be strictly identical between linked components, the compatibility has to be ensured at least. There are two main directions in this area:</p>
+
+<ul>
+  <li>Design data to have a small transfer size and memory footprint</li>
+  <li>Generic data representation, written in standard formats (i.e. JSON or XML)</li>
+</ul>
+
+<p><a href="https://developers.google.com/protocol-buffers/">Google Protocol Buffers</a> presents a comparison between their own serialization format and the XML parsing and conclude that their format is 10 to 100 times faster than XML. <a href="http://msgpack.org/">MsgPack</a> follows the same direction of small memory footprint data representation, by offering better performance than Google Protocol Buffers, while maintaining the multi-language binding and multi-platform support.</p>
+
+<p>We therefore propose to define our own Object-Oriented data representation. Thanks to object hierarchies, objects are extensible and independent from the data serialization level. This allows us to change the serialization level in the future if needed. Currently, the serialization is done with MsgPack due to the best performance. The data has a small memory footprint than in the case of XML or JSON, has very fast serialization mechanisms and offers the advantages of working with native Object Structures rather than XML trees or JSON maps.</p>
+
+<h2 id="myblock-components">MyBlock Components</h2>
+
+<p>A component is an atomic structure for the MyBlock platform. The component processes a given set of data types and forward the output to the next component in the chain. The internal flow of a component can have two different aspects: either it is a reactive output to the input, or an active component that can produce output based on the internal states without any input. Special components are elements which only consume (Sink) or produce (Source), without any mixed function.</p>
+
+<p>At this level, data types are an important aspect. The data exchanged need to be compatible between linked elements. A component formally defines preconditions and post-conditions in terms of data types, in order to be linked with other components to form complex processing pipes. The communication protocol between two components is a simple publish-subscribe architecture to ease data exchange.</p>
+
+<h2 id="myblock-services">MyBlock Services</h2>
+
+<p>Similarly to the component, we define the services. A service is designed is to respond to requests that can be triggered by any component or other service. The communication protocol used for services is a synchronous request-reply.
+AgentSlang Components</p>
+
+<p><img src="/assets/images/system-diag.svg" alt="System diagram" /></p>
+
+<p>Most of the basic components are based on existing libraries, such as:</p>
+
+<ul>
+  <li><a href="https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">Google Speech API</a> for Automatic Speech Recognition</li>
+  <li><a href="http://www.cereproc.com/">CereProc Voice</a> for speech synthesis</li>
+  <li>various Part-of-Speech Taggers (<a href="http://ronan.collobert.com/senna/">SENNA</a>, <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/">TreeTagger</a>)</li>
+  <li><a href="http://marc.limsi.fr/">MARC</a> as an Embodied virtual Agent</li>
+</ul>
+
+<p>Our proposal includes:</p>
+
+<ul>
+  <li>Syn!bad for Synonym-based keyword extraction</li>
+  <li>Simple Dialogue Manager for narrative models</li>
+</ul>
+
+      </section>
+    </div>
+  </body>
+</html>
