@@ -119,10 +119,9 @@ Optional Configuration Parameters:
 opParam1
 
 Input Data Types: 
-…
      
 Output Channels	Output Data Types
-…	…
+
 Their values can be defined like the following example:
 ```xml
 <component name=" org.agent.slang.test.Component1">
