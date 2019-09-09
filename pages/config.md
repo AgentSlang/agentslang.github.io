@@ -88,7 +88,8 @@ There are 4 important parts of the config file :
 </scheduler>
 ```
 4.	Services / Clients: We’ll leave the services and clients to the basic configuration for now. The CNService advanced configuration is described in the “How to run WoZ 2 Machines Version of agentslang for windows or Linux” tutorials.
-#	5.	Components
+5.	Components
+
 ```xml
 <component name="Component1">
   <port>pubPortID</port>
@@ -126,6 +127,7 @@ Input Data Types:
 Output Channels	Output Data Types
 
 Their values can be defined like the following example:
+
 ```xml
 <component name=" org.agent.slang.test.Component1">
   <port>PortID</port>
@@ -139,7 +141,6 @@ Their values can be defined like the following example:
 ```
 Note: In order to have a better understanding of how to create a new configuration, it is recommended to read “How to run …” tutorials first.
 
- 
 Here is the list of our components.
 org.agent.slang.annotation.MELtComponent
 Mandatory Configuration Parameters: 
