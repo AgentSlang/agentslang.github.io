@@ -2,8 +2,8 @@ AgentSlang is a collection of components, created on top of the MyBlock middlewa
 
 The choice of a certain Message Queue protocol implementation has been done on licence availability, popularity and performance. In particular, we benchmarked ZeroMQ over ActiveMQ, to confirm that ZeroMQ (our choice) is a faster and reliable candidate, which supports multiple connection types, different communication patterns, the possibility to send binary data and the absence of a broker component, which slows down a distributed pipeline architecture.
 
-The [design page](pages/design.md) shows more details about the design deccisions. If you want to try this please head out to our [install guide](pages/install.md) or [API documentation](pages/api/index.md) for more details about the available components.
+The [design page](pages/design.md) shows more details about the design deccisions. If you want to try this please head out to our [install guide](pages/install.md) or [API documentation](https://agentslang.github.io/pages/doc/index.md) for more details about the available components.
 
-The [demos page](pages/demo.md) show current implementations and projects using the AgentSlang system.
+The [demos page](https://agentslang.github.io/pages/config.md) show current implementations and projects using the AgentSlang system.
 
 Contact details and contributer information is available on the [team page](pages/team.md).
