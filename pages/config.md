@@ -132,8 +132,9 @@ Optional Configuration Parameters:
 opParam1
 ```
 Input Data Types: 
-     
+```java
 Output Channels	Output Data Types
+```
 
 Their values can be defined like the following example:
 
@@ -160,6 +161,7 @@ Optional Configuration Parameters:
 meltParams
 
 Input Data Types: 
+
 StringData.class   
      
 Output Channels	Output Data Types
