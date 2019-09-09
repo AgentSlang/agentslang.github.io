@@ -1,10 +1,9 @@
 # Contributors
 
-- [Ovidiu Șerban](http://ovidiu.roboslang.org/), original author, core maintainer, project lead
-- [Alexandre Pauchet](http://asi.insa-rouen.fr/enseignants/~apauchet/), project lead
-- [Zojaji Sahba](), core contributor & maintainer
-- [William Boisseleau](), platform & model development
-- [Sami Boukortt](), platform & model Development, IP camera, face reader integration
+- [Alexandre PAUCHET](http://asi.insa-rouen.fr/enseignants/~apauchet/), Project lead
+- [julien SAUNIER] (http://pagesperso.litislab.fr/~jsaunier/) Co-Supervisor
+- [Naser GHANNAD](), core contributor & maintainer
+- [Ovidiu Șerban](http://ovidiu.roboslang.org/), original author, previous core maintainer, previous project lead
 
 ## Other contributions
 
