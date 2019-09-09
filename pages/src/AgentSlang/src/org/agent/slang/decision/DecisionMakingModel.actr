@@ -1,0 +1,81 @@
+;; Decision Making ACT-R Model
+;; First edition by Sahba Zojaji
+;; It is only for testing ACT-R inside agentslang
+
+(set-task "org.agent.slang.decision.DecisionMakingTask")
+
+(sgp :esc t :lf .05);; :v nil) ;; :trace-detail high)
+
+(chunk-type step current next finished)
+(chunk-type tell-story  start-step end-step current-step)
+
+(add-dm
+    (step1 ISA step current 1 next 2 finished t)
+    (step2 ISA step current 2 next 3 finished t)
+    (step3 ISA step current 3 next 4 finished t)
+    (step4 ISA step current 4 next 5 finished t)
+    (step5 ISA step current 5 next 6)
+	(step6 isa step current 6 next 7)
+    (first-goal ISA tell-story  start-step 1 end-step 10)
+)
+
+(p start
+    =goal>
+        ISA         	tell-story
+        start-step		=num
+        current-step	nil
+	;;!eval! (is-odd =num)
+==>
+    =goal>
+        current-step	=num
+    +retrieval>
+        ISA         	step
+        current     	=num
+	!output!			(=num)
+	!bind! 				=start-step (no =num)
+)
+
+(p increment
+    =goal>
+        ISA         	tell-story
+        current-step	=num1
+        - end-step     	=num1
+    =retrieval>
+        ISA         	step
+        current       	=num1
+        next	      	=num2
+		finished		t
+	;;!eval! (is-even =num2)
+==>
+    =goal>
+        current-step	=num2
+    +retrieval>
+        ISA         	step
+        current       	=num2
+    !output!       		(=num2)
+	!bind! 				=current (no =num2)
+)
+
+(p stop
+    =goal>
+        ISA         	tell-story
+        current-step    =num
+        end-step		=num
+==>
+    -goal>
+    !output!       		(=num)
+)
+
+(p stop-before-end
+    =goal>
+        ISA         	tell-story
+        current-step    =num
+        -end-step		=num
+	?retrieval>
+		buffer			failure
+==>
+    -goal>
+    !output!       		(=num)
+)
+
+(goal-focus first-goal)

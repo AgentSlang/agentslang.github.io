@@ -1,0 +1,8 @@
+dependencies {
+    compile 'com.beust:jcommander:1.48'
+    compile 'org.zeromq:jeromq:0.3.5'
+    compile 'org.msgpack:msgpack:0.6.12'
+    compile 'org.reflections:reflections:0.9.10'
+    compile 'com.miglayout:miglayout-swing:5.0'
+    compile 'org.graphstream:gs-core:1.3'
+}

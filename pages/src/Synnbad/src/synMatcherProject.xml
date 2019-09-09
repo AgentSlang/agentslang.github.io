@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Ovidiu Serban, ovidiu@roboslang.org
+  ~               web:http://ovidiu.roboslang.org/
+  ~ All Rights Reserved. Use is subject to license terms.
+  ~
+  ~ This file is part of AgentSlang Project (http://agent.roboslang.org/).
+  ~
+  ~ AgentSlang is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License and CECILL-B.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ The CECILL-B license file should be a part of this project. If not,
+  ~ it could be obtained at  <http://www.cecill.info/>.
+  ~
+  ~ The usage of this project makes mandatory the authors citation in
+  ~ any scientific publication or technical reports. For websites or
+  ~ research projects the AgentSlang website and logo needs to be linked
+  ~ in a visible area.
+  -->
+
+<jwnl_properties language="en">
+    <version publisher="Princeton" number="3.0" language="en"/>
+    <dictionary class="net.sf.extjwnl.dictionary.FileBackedDictionary">
+        <param name="morphological_processor" value="net.sf.extjwnl.dictionary.morph.DefaultMorphologicalProcessor">
+            <param name="operations">
+                <param value="net.sf.extjwnl.dictionary.morph.LookupExceptionsOperation"/>
+                <param value="net.sf.extjwnl.dictionary.morph.DetachSuffixesOperation">
+                    <param name="noun" value="|s=|ses=s|xes=x|zes=z|ches=ch|shes=sh|men=man|ies=y|"/>
+                    <param name="verb" value="|s=|ies=y|es=e|es=|ed=e|ed=|ing=e|ing=|"/>
+                    <param name="adjective" value="|er=|est=|er=e|est=e|"/>
+                    <param name="operations">
+                        <param value="net.sf.extjwnl.dictionary.morph.LookupIndexWordOperation"/>
+                        <param value="net.sf.extjwnl.dictionary.morph.LookupExceptionsOperation"/>
+                    </param>
+                </param>
+                <param value="net.sf.extjwnl.dictionary.morph.TokenizerOperation">
+                    <param name="delimiters">
+                        <param value=" "/>
+                        <param value="-"/>
+                    </param>
+                    <param name="token_operations">
+                        <param value="net.sf.extjwnl.dictionary.morph.LookupIndexWordOperation"/>
+                        <param value="net.sf.extjwnl.dictionary.morph.LookupExceptionsOperation"/>
+                        <param value="net.sf.extjwnl.dictionary.morph.DetachSuffixesOperation">
+                            <param name="noun" value="|s=|ses=s|xes=x|zes=z|ches=ch|shes=sh|men=man|ies=y|"/>
+                            <param name="verb" value="|s=|ies=y|es=e|es=|ed=e|ed=|ing=e|ing=|"/>
+                            <param name="adjective" value="|er=|est=|er=e|est=e|"/>
+                            <param name="operations">
+                                <param value="net.sf.extjwnl.dictionary.morph.LookupIndexWordOperation"/>
+                                <param value="net.sf.extjwnl.dictionary.morph.LookupExceptionsOperation"/>
+                            </param>
+                        </param>
+                    </param>
+                </param>
+            </param>
+        </param>
+        <param name="dictionary_element_factory"
+               value="net.sf.extjwnl.princeton.data.PrincetonWN17FileDictionaryElementFactory"/>
+        <param name="file_manager" value="net.sf.extjwnl.dictionary.file_manager.FileManagerImpl">
+            <param name="file_type" value="net.sf.extjwnl.princeton.file.PrincetonRandomAccessDictionaryFile">
+                <!--<param name="write_princeton_header" value="true"/>-->
+                <!--<param name="encoding" value="UTF-8"/>-->
+            </param>
+            <!--<param name="cache_use_count" value="true"/>-->
+            <!-- Unfortunately, this config parameter is relative to working directory -->
+            <param name="dictionary_path" value="../bin/dict"/>
+        </param>
+    </dictionary>
+    <resource class="net.sf.extjwnl.princeton.PrincetonResource"/>
+</jwnl_properties>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Speech to Text</title>
+    <script>
+        (function() {
+            if (!("SpeechRecognition" in window) && "webkitSpeechRecognition" in window) {
+                SpeechRecognition = webkitSpeechRecognition;
+            }
+
+            if (!("WebSocket" in window && "SpeechRecognition" in window)) {
+                alert("WebSockets and the Web Speech API are required. The latest version of Google Chrome supports them.");
+                return;
+            }
+
+            var recognition = new SpeechRecognition();
+            var running = true;
+            var ws;
+
+            recognition.onerror = function(event) {
+                console.log(event);
+            };
+
+            recognition.onresult = function(event) {
+                console.log(event);
+                ws.send(event.results[event.resultIndex][0].transcript);
+            };
+
+            recognition.onend = function(event) {
+                console.log(event);
+                if (running) {
+                    recognition.start();
+                }
+            };
+
+            ws = new WebSocket("wss://localhost:8149/");
+
+            ws.onmessage = function(message) {
+                console.log(message);
+                switch (message.data) {
+                    case "start":
+                        running = true;
+                        recognition.start();
+                        break;
+
+                    case "stop":
+                        running = false;
+                        recognition.stop();
+                        break;
+
+                    default:
+                        recognition.lang = message.data;
+                        recognition.start();
+                        break;
+                }
+            };
+
+            ws.onerror = function(event) {
+                console.log(event);
+            };
+
+            ws.onclose = function(event) {
+                console.log(event);
+                running = false;
+                recognition.stop();
+            };
+        })();
+    </script>
+</html>

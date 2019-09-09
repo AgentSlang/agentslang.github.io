@@ -1,0 +1,7 @@
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+    compile 'edu.mit:jwi:2.2.3'
+    compile 'net.sf.extjwnl:extjwnl:1.9'
+
+    testCompile 'junit:junit:4.12'
+}

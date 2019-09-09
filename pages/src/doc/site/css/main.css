@@ -1,0 +1,41 @@
+.all {
+	width:600px;
+	margin: 0px auto;
+}
+
+/* -- Menu -- */
+.menu {
+	position:relative;
+	top:50px;
+}
+.menu ul {
+	position:relative;
+	left:60px;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width:600px;
+}
+
+.menu ul li {
+	margin: -5px;
+	padding: 0px;
+	font-size:18px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	display: inline;
+}
+.menu a:link,.menu a:visited {
+	color: #019ade;
+	text-decoration:none;
+}
+.menu a:hover, .menu a:active {
+ 	color: #f6851f;
+	text-decoration:none;
+}
+
+.menu_item {
+	position:relative;
+	top:30px;
+	left:-65px;
+}

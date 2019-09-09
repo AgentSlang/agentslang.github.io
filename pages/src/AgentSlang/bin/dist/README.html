@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AgentSlang</title>
+    </head>
+    <body>
+        <h1>AgentSlang</h1>
+
+        <h2>Installation</h2>
+
+        <p>
+        Along with this document, the archive that you have downloaded contains
+        a few folders. You mainly need to concern yourself with these:
+
+        <dl>
+            <dt><strong><code>bin/</code></strong>
+            <dd>
+            This contains the startup script for your platform (<code>
+            AgentSlang.bat</code> for Microsoft Windows, <code>AgentSlang</code>
+            for Unix-based OSes).
+
+            <dd>
+            Run it without any option to see the full list of available
+            parameters.
+
+            <dt><strong><code>config/</code></strong>
+            <dd>
+            This directory contains several configuration files that each
+            describe a set of components and their connections.
+
+            <dt><strong><code>javadoc/</code></strong>
+            <dd>
+            This contains documentation files for various AgentSlang components.
+
+            <dt><a href="Nareca/README.html"><strong><code>Nareca/</code></strong></a>
+            <dd>This contains story data.
+        </dl>
+
+        <h2>Available Components</h2>
+
+        <p>
+        Many components are available for use, although some of them might
+        require specific setup procedures to be carried out. Such procedures
+        will typically be described in the documentation for the component.
+
+        <h3>Non-exhaustive component list</h3>
+
+        <dl>
+            <dt>
+            <a href="javadoc/org/agent/slang/in/google/GoogleASRComponent.html"><code>GoogleASRComponent</code></a>
+
+            <dd>A component that enables the use of vocal recognition.
+
+            <dt>
+            <a href="javadoc/org/agent/slang/in/videoconferencing/VCStreamer.html"><code>VCStreamer</code></a> /
+            <a href="javadoc/org/agent/slang/out/videoconferencing/VCDisplay.html"><code>VCStreamer</code></a>
+
+            <dd>Components for videoconferencing.
+
+            <dt>
+            <a href="javadoc/org/agent/slang/in/facereader/FaceReaderComponent.html"><code>FaceReaderComponent</code></a>
+
+            <dd>
+            Component for using
+            <a href="http://www.noldus.com/office/fr/facereader">FaceReader</a>
+            data from other AgentSlang components.
+
+            <dt>
+            <a href="javadoc/org/agent/slang/dm/narrative/graph/StoryGraphComponent.html"><code>StoryGraphComponent</code></a>
+
+            <dd>
+            Can be used in conjunction with storytelling components to control
+            them using a graphic display of the story.
+
+            <!-- TODO complete this -->
+        </dl>
+
+        <h2>Running the platform</h2>
+
+        <p>
+        Once you have decided which configuration file to run, you can simply
+        pass it to the startup script along with the appropriate profile.
+
+        <p>
+        For example, if you use Linux and want to use <code>config-nareca.xml
+        </code> with the (only) profile <code>profile1</code>, you will want to
+        run the following command from the <code>bin</code> directory:
+
+        <pre><code>./AgentSlang -config ../config/config-nareca.xml -profile profile1</code></pre>
+
+        <p>
+        Note that in the case of multi-machine configurations, you may have to
+        adjust the IP addresses in the corresponding <code>cnsService-*.xml
+        </code> file.
+
+        <h3>Included configuration files</h3>
+
+        <dl>
+            <dt><strong><code>config/config-nareca.xml</code></strong>
+            <dd>
+            Simple config file that you can use to test simple story narration.
+
+            <dt><strong><code>config/config-nareca-one-machine.xml</code></strong>
+            <dd>
+            More elaborate config file that narrates the story using MARC, can
+            be controlled <i>via</i> a graph display and can optionally use
+            vocal recognition (see the
+            <a href="javadoc/org/agent/slang/in/google/GoogleASRComponent.html">
+            documentation</a> on how to set it up).
+
+            <dt><strong><code>config/config-nareca-two-machines.xml</code></strong>
+            <dd>
+            Similar to the previous configuration, but runs on two machines: it
+            is a <q>Wizard of Oz experiment</q> in that one machine is the
+            <q>subject</q> and the other one is the <q>operator</q>.
+
+            <dd>
+            Their respective profiles in the configuration file are <code>
+            profile-subject</code> and <code>profile-operator</code>.
+
+            <dd>
+            Note: MARC must be started first (using the <code>Narrative.xml
+            </code> settings file), then <code>profile-subject</code>, and
+            finally <code>profile-operator</code>.
+
+            <dt><strong><code>config/config-nareca-four-machines.xml</code></strong>
+            <dd>
+            A prototype for a configuration that would involve four
+            participants (two <q>avatars</q>, and two <q>agents</q>).
+
+            <dd>
+            It uses the following profile names:
+            <ul>
+                <li>
+                <strong><code>profile-subject-1</code></strong>: must be started
+                first, but after two instances of MARC (running <code>
+                Narrative.xml</code> and <code>Narrative2.xml</code>)
+
+                <li>
+                <strong><code>profile-subject-2</code></strong>: must be started
+                after the first subject and two instances of MARC (running the
+                same settings as for <code>profile-subject-1</code>)
+
+                <li>
+                <strong><code>profile-operator-1</code></strong> and
+                <strong><code>profile-operator-2</code></strong>: must be
+                started after the first subject and after one instance of MARC
+                (running <code>Narrative.xml</code>)
+            </ul>
+        </dl>
+    </body>
+</html>

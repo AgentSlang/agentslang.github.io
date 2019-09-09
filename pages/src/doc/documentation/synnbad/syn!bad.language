@@ -1,0 +1,24 @@
+This is the formal description of the formal pattern matching language:
+
+<expression> ::= <token> " " <expression> | <token>
+
+<token> ::= <pattern> | <pattern> "*" | <pattern> "?" | <pattern> "{" <number> "," <number> "}"
+
+<pattern> ::= <word> | "<" <POS_Structure> ">" | "$" <variable> | "[" <synonym> "]"
+
+<POS_Structure> ::= <POS> ("#" <variable>)?
+
+<POS> ::= <PennPOS> | <GenericPOS>
+
+<synonym> ::= <word> ("|" <POS>)? ("#" <variable>)?
+
+<number> ::= [1-9] [0-9]*
+<word> ::= [a-z]+
+<variable> ::= [a-z0-9]+
+
+<PennPOS> ::= 	"JJ" | "RB" | "DT" | "TO" | "RP" | "RBR" | "RBS" | "LS" | "JJS" | "JJR" | "FW" | 
+		"NN" | "NNPS" | "VBN" | "VB" | "VBP" | "PDT" | "WP$" | "PRP" | "MD" | "SYM" | "WDT" | 
+		"VBZ" | """ | "#" | "WP" | "'" | "IN" | "$" | "VBG" | "EX" | "POS" | "(" | "VBD" | 
+		")" | "." | "," | "UH" | "NNS" | "CC" | "CD" | "NNP" | "PP$" | ":" | "WRB"
+
+<GenericPOS> ::= "#*" | "VB*" | "RB*" | "NN*" | "JJ*"

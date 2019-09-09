@@ -1,0 +1,90 @@
+apply plugin: 'application'
+mainClassName = 'org.ib.component.ComponentRunner'
+
+repositories {
+    maven {url 'http://dl.bintray.com/marytts/marytts'}
+    maven {url 'http://dl.bintray.com/dfki-lt/maven'}
+}
+
+dependencies {
+    compile project(':MyBlock')
+    compile project(':Synnbad')
+
+    compile fileTree(dir: 'lib', include: '*.jar')
+
+    // org.agent.slang.annotation.MetaPhoneEncodingComponent
+    compile 'commons-codec:commons-codec:1.10'
+
+    // org.agent.slang.dm.narrative.data.*
+    compile 'org.jdom:jdom2:2.0.6'
+
+    // org.agent.slang.in.google.GoogleASRComponent
+    compile 'org.glassfish.grizzly:grizzly-http-server:2.3.23'
+    compile 'org.glassfish.grizzly:grizzly-websockets-server:2.3.23'
+    compile 'org.seleniumhq.selenium:selenium-chrome-driver:2.47.1'
+
+    // org.agent.slang.in.proxy.socket.BTDataSocket
+    compile 'net.sf.bluecove:bluecove:2.1.0'
+    compile 'net.sf.bluecove:bluecove-gpl:2.1.0'
+
+    // org.agent.slang.service.km.cismef.ScrapperUtility
+    compile 'org.apache.httpcomponents:httpclient-cache:4.5'
+
+    // org.agent.slang.out.marytts.MaryComponent
+    compile 'de.dfki.mary:marytts-runtime:5.1.2'
+    ['de', 'en', 'it', 'ru', 'sv', 'te', 'tr'].each {runtime "de.dfki.mary:marytts-lang-$it:5.1.2"}
+    runtime 'de.dfki.mary:voice-cmu-slt-hsmm:5.1.2'
+
+    // org.agent.slang.in.videoconferencing.VCStreamer
+    compile 'org.glassfish.grizzly:grizzly-http-server:2.3.23'
+
+    // org.agent.slang.in.facereader.FaceReaderComponent
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.javolution:javolution-core-java:6.0.0'
+    compile 'org.swinglabs.swingx:swingx-core:1.6.5-1'
+
+    // org.agent.slang.dm.narrative.graph.StoryGraphComponent
+    compile 'commons-lang:commons-lang:2.6'
+    compile 'com.github.monkeysintown:jgraphx:3.3.1.1'
+}
+
+tasks.withType(JavaExec) {
+    systemProperty 'java.library.path', "$projectDir/src/dist/lib"
+}
+
+startScripts {
+    /* FIXME
+       hack until Gradle:
+       1. allows referencing APP_HOME from applicationDefaultJvmArgs
+       2. does not produce a command line (set CLASSPATH=...) too long for
+          Windows (cmd.exe)
+    */
+    doLast {
+        unixScript.text = unixScript.text.replaceAll(/APP_HOME=.*\n/, '$0export PATH="\\$PATH:\\$APP_HOME/lib/"\nexport LD_LIBRARY_PATH="\\$LD_LIBRARY_PATH:\\$APP_HOME/lib/"\nexport DYLD_LIBRARY_PATH="\\$DYLD_LIBRARY_PATH:\\$APP_HOME/lib/"\n')
+        windowsScript.text = windowsScript.text.replaceAll(/APP_HOME=.*\r\n/, '$0set PATH=%PATH%;%APP_HOME%\\\\lib\r\n') \
+            .replaceAll(/set CLASSPATH=(.*)/) {
+                def jars = it[1].tokenize(';')
+                "set CLASSPATH=" + jars.join("\r\nset CLASSPATH=%CLASSPATH%;")
+            } \
+            .minus(/ -classpath "%CLASSPATH%"/)
+    }
+}
+
+applicationDistribution.into('bin') {
+    from '../bin'
+}
+
+applicationDistribution.into('config') {
+    from 'config'
+    from('../Synnbad/src') {
+        include '*.xml'
+    }
+}
+
+applicationDistribution.into('javadoc') {
+    from(javadoc)
+}
+
+applicationDistribution.into('Nareca') {
+    from '../Nareca'
+}

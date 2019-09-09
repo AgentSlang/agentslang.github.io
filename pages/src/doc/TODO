@@ -1,0 +1,11 @@
+-- MyBlock
+3* Component designer and deployer
+
+-- AgentSlang 
+4. Sentiment Feedback system
+6. Dialogue manager
+7. Template parser
+	- synonym matcher with POS filtering
+8. Knowledge service
+	- global facts
+	- local facts

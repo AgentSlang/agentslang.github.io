@@ -1,0 +1,350 @@
+<!--
+  ~ Copyright (c) Ovidiu Serban, ovidiu@roboslang.org
+  ~               web:http://ovidiu.roboslang.org/
+  ~ All Rights Reserved. Use is subject to license terms.
+  ~
+  ~ This file is part of AgentSlang Project (http://agent.roboslang.org/).
+  ~
+  ~ AgentSlang is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License and CECILL-B.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ The CECILL-B license file should be a part of this project. If not,
+  ~ it could be obtained at  <http://www.cecill.info/>.
+  ~
+  ~ The usage of this project makes mandatory the authors citation in 
+  ~ any scientific publication or technical reports. For websites or
+  ~ research projects the AgentSlang website and logo needs to be linked
+  ~ in a visible area.
+  -->
+
+<project>
+    <profile name="profile-subject-1" hostname="machine-subject">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService-nareca.xml</config>
+            </service>
+            <service name="org.ib.service.topic.TopicService">
+                <port>1220</port>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-subject</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>StringData.Text@machine-subject-2:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1234</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1235</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1236</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <subscribe>AudioData.Text@machine-subject:1234</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4010</MARCInPort>
+                <MARCOutPort>4011</MARCOutPort>
+                <audioCache>audioCache</audioCache>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1237</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <subscribe>AudioData.Text@machine-subject:1235</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4020</MARCInPort>
+                <MARCOutPort>4021</MARCOutPort>
+                <audioCache>audioCache2</audioCache>
+            </component>
+
+            <component name="org.agent.slang.in.videoconferencing.VCStreamer">
+                <port>1238</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <targets>machine-operator:8150;machine-operator-2:8150;machine-subject-2:8150</targets>
+            </component>
+
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1239</port>
+                <scheduler>machine-subject:1222</scheduler>
+                <basePort>8160</basePort>
+            </component>
+        </components>
+    </profile>
+
+    <profile name="profile-subject-2" hostname="machine-subject-2">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService-nareca.xml</config>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-subject</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>StringData.Text@machine-subject:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1234</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1235</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1236</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <subscribe>AudioData.Text@machine-subject-2:1234</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4010</MARCInPort>
+                <MARCOutPort>4011</MARCOutPort>
+                <audioCache>audioCache</audioCache>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1237</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <subscribe>AudioData.Text@machine-subject-2:1235</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4020</MARCInPort>
+                <MARCOutPort>4021</MARCOutPort>
+                <audioCache>audioCache</audioCache>
+            </component>
+
+            <component name="org.agent.slang.in.videoconferencing.VCStreamer">
+                <port>1238</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <targets>machine-operator:8160;machine-operator-2:8160;machine-subject:8160</targets>
+            </component>
+
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1239</port>
+                <scheduler>machine-subject-2:1222</scheduler>
+                <basePort>8150</basePort>
+            </component>
+        </components>
+    </profile>
+
+    <profile name="profile-operator-1" hostname="machine-operator">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService-nareca.xml</config>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-subject</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine-operator:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>StringData.Text@machine-subject:1233</subscribe>
+                <subscribe>StringData.Text@machine-subject-2:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1234</port>
+                <scheduler>machine-operator:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator-2:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1235</port>
+                <scheduler>machine-operator:1222</scheduler>
+                <subscribe>AudioData.Text@machine-operator:1234</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4010</MARCInPort>
+                <MARCOutPort>4011</MARCOutPort>
+                <audioCache>audioCache</audioCache>
+            </component>
+
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1236</port>
+                <scheduler>machine-operator:1222</scheduler>
+                <basePort>8150</basePort>
+            </component>
+ 
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1237</port>
+                <scheduler>machine-operator:1222</scheduler>
+                <basePort>8160</basePort>
+            </component>
+        </components>
+    </profile>
+
+    <profile name="profile-operator-2" hostname="machine-operator-2">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService-nareca.xml</config>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-subject</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine-operator-2:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>StringData.Text@machine-subject:1233</subscribe>
+                <subscribe>StringData.Text@machine-subject-2:1233</subscribe>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1234</port>
+                <scheduler>machine-operator-2:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>StringData.Text@machine-operator:1233</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1235</port>
+                <scheduler>machine-operator-2:1222</scheduler>
+                <subscribe>AudioData.Text@machine-operator-2:1234</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4010</MARCInPort>
+                <MARCOutPort>4011</MARCOutPort>
+                <audioCache>audioCache</audioCache>
+            </component>
+
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1236</port>
+                <scheduler>machine-operator-2:1222</scheduler>
+                <basePort>8150</basePort>
+            </component>
+ 
+            <component name="org.agent.slang.out.videoconferencing.VCDisplay">
+                <port>1237</port>
+                <scheduler>machine-operator-2:1222</scheduler>
+                <basePort>8160</basePort>
+            </component>
+        </components>
+    </profile>
+</project>

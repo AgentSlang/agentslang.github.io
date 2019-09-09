@@ -1,0 +1,165 @@
+<!--
+  ~ Copyright (c) Ovidiu Serban, ovidiu@roboslang.org
+  ~               web:http://ovidiu.roboslang.org/
+  ~ All Rights Reserved. Use is subject to license terms.
+  ~
+  ~ This file is part of AgentSlang Project (http://agent.roboslang.org/).
+  ~
+  ~ AgentSlang is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License and CECILL-B.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ The CECILL-B license file should be a part of this project. If not,
+  ~ it could be obtained at  <http://www.cecill.info/>.
+  ~
+  ~ The usage of this project makes mandatory the authors citation in
+  ~ any scientific publication or technical reports. For websites or
+  ~ research projects the AgentSlang website and logo needs to be linked
+  ~ in a visible area.
+  -->
+
+<project>
+    <profile name="linux" hostname="machine-linux">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService-win.xml</config>
+            </service>
+            <service name="org.ib.service.topic.TopicService">
+                <port>1220</port>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-linux</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <!--<component name="org.ib.component.SystemMonitorComponent">-->
+                <!--<port>1231</port>-->
+                <!--<scheduler>machine-linux:1222</scheduler>-->
+                <!--&lt;!&ndash;<subscribe>org.agent.slang.inout.TextComponent.system@machine-linux:1233</subscribe>&ndash;&gt;-->
+                <!--&lt;!&ndash;<subscribe>org.agent.slang.dm.narrative.PatternMatchingComponent.system@machine-linux:1236</subscribe>&ndash;&gt;-->
+                <!--&lt;!&ndash;<subscribe>org.agent.slang.out.bml.marc.MarcBMLTranslationComponent.system@machine-windows:1234</subscribe>&ndash;&gt;-->
+                <!--&lt;!&ndash;<subscribe>org.agent.slang.annotation.SennaComponent.system@machine-linux:1235</subscribe>&ndash;&gt;-->
+                <!--<publish>System.Feedback@system.monitor.data</publish>-->
+            <!--</component>-->
+
+            <component name="org.ib.logger.LogComponent">
+                <port>1232</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <subscribe>org.agent.slang.inout.TextComponent.debug@machine-linux:1233</subscribe>
+                <subscribe>org.agent.slang.out.cereproc.CereProcTTSComponent.debug@machine-linux:1238</subscribe>
+                <subscribe>org.agent.slang.out.bml.marc.MarcBMLTranslationComponent.debug@machine-windows:1234</subscribe>
+                <!--<subscribe>org.agent.slang.in.google.GoogleASRComponent.debug@machine-linux:1234</subscribe>-->
+            </component>
+
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>response.narrative.text@machine-linux:1236</subscribe>
+                <subscribe>response.narrative.text@machine-linux:1237</subscribe>
+                <!--<subscribe>AudioData.Text@machine-linux:1233</subscribe>-->
+            </component>
+
+            <!--<component name="org.agent.slang.in.google.GoogleASRComponent">-->
+                <!--<port>1234</port>-->
+                <!--<scheduler>machine-linux:1222</scheduler>-->
+                <!--<publish>StringData.Text@voice.data</publish>-->
+            <!--</component>-->
+
+            <component name="org.agent.slang.annotation.SennaComponent">
+                <port>1235</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <publish>senna.AnnotatedData.Text@senna.data</publish>
+                <subscribe>StringData.Text@machine-linux:1233</subscribe>
+                <!--<subscribe>StringData.Text@machine-linux:1234</subscribe>-->
+                <sennaPath>/home/ovidiu/senna</sennaPath>
+                <sennaParams>-pos</sennaParams>
+            </component>
+
+            <component name="org.agent.slang.dm.narrative.PatternMatchingComponent">
+                <port>1236</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <publish>response.narrative.text@response.data</publish>
+                <publish>command.narrative.text@command.data</publish>
+                <subscribe>senna.AnnotatedData.Text@machine-linux:1235</subscribe>
+                <!--<subscribe>System.Feedback@machine-linux:1231</subscribe>-->
+                <subscribe>PlayerFeedback.Event@machine-windows:1234</subscribe>
+                <modelPath>../../Nareca/scenario/</modelPath>
+            </component>
+
+            <component name="org.agent.slang.dm.narrative.HandleCommandComponent">
+                <port>1237</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <publish>response.narrative.text@command.data</publish>
+                <subscribe>command.narrative.text@machine-linux:1236</subscribe>
+                <modelPath>../../Nareca/scenario/</modelPath>
+            </component>
+
+            <component name="org.agent.slang.out.cereproc.CereProcTTSComponent">
+                <port>1238</port>
+                <scheduler>machine-linux:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>response.narrative.text@machine-linux:1236</subscribe>
+                <subscribe>response.narrative.text@machine-linux:1237</subscribe>
+                <voice>cerevoice_heather_3.0.8_22k.voice</voice>
+                <licenseFile>license.lic</licenseFile>
+            </component>
+        </components>
+    </profile>
+
+    <profile name="marc" hostname="machine-windows">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <!--<host>192.168.20.72</host>-->
+                <host>192.168.2.6</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine-linux</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.out.bml.marc.MarcBMLTranslationComponent">
+                <port>1234</port>
+                <scheduler>machine-windows:1222</scheduler>
+                <subscribe>AudioData.Text@machine-linux:1238</subscribe>
+                <publish>PlayerFeedback.Event@audioPlayer.data</publish>
+                <MARCSocketType>tcp</MARCSocketType>
+                <MARCHostname>127.0.0.1</MARCHostname>
+                <MARCInPort>4010</MARCInPort>
+                <MARCOutPort>4011</MARCOutPort>
+                <audioCache>c:\AgentSlang\audioCache\</audioCache>
+            </component>
+        </components>
+    </profile>
+</project>

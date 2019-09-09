@@ -1,0 +1,27 @@
+0. Install Java. Please note that Oracle JDK 1.7.x is preferred. OpenJDK may have some performance issues
+
+**For Development, follow the development guide !
+
+**For Testing, deployment, continue with this guide ...
+
+1. Release AgentSlang:
+	execute: ./gradlew installDist
+	The output will be in AgentSlang/build/install/AgentSlang
+
+2. To run platform:
+	From AgentSlang/build/install/AgentSlang/bin, execute:
+	./AgentSlang -config ../config/config-nareca.xml -profile profile1
+	./AgentSlang -config ../config/config-nareca-oz-1m.xml -profile profile1
+	./AgentSlang -config ../config/config-nareca-oz-1m-user.xml -profile profile1
+	./AgentSlang -config ../config/config-nareca-one-machine.xml -profile profile1
+	./AgentSlang -config ../config/config-nareca-one-machine-user.xml -profile profile1
+	./AgentSlang -config ../config/config-nareca-two-machines.xml -profile profile-operator
+	./AgentSlang -config ../config/config-nareca-two-machines.xml -profile profile-subject
+	./AgentSlang -config ../config/config-nareca-oz-2m.xml -profile profile-subject
+	./AgentSlang -config ../config/config-nareca-two-machines-2c.xml -profile profile-operator
+
+
+3. Create a distributable archive:
+	execute: ./gradlew distZip
+	or: ./gradlew distTar
+	The output will be in AgentSlang/build/distributions

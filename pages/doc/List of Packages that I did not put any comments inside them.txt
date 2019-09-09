@@ -1,0 +1,14 @@
+List of Packages that I did not put any comments inside them:
+--------------------------------------------------------------
+org.agent.slang.annotation (only for these classes: MELtComponent,MetaphoneEncodingComponent,MorfetteComponent)
+org.agent.slang.data.audio (only for some functions of this class: AudioData)
+org.agent.slang.audio
+org.agent.slang.feedback
+org.agent.slang.in.facereader
+org.agent.slang.in.proxy
+org.agent.slang.in.proxy.socket
+org.agent.slang.inout (only this class: TerminalIOComponentHack)
+org.agent.slang.out.bml.marc (Only for these classes: MarcBMLAutonomousComponent, MarcBMLSTranslationComponent, MarcBMLStringQueue)
+org.agent.slang.out.marytts
+org.agent.slang.service.km.cismef
+org.agent.slang.service.km.cismef.data

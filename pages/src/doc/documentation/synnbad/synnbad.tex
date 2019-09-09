@@ -1,0 +1,94 @@
+\documentclass[10pt]{article}
+\usepackage{syntax}
+
+\newcommand{\synbad}{Syn!bad }
+
+\title{Syn!bad: A short guide}
+\author{by Ovidiu \c Serban}
+\date{}
+
+\begin{document}	
+\maketitle
+\vfill
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\textbf{Note: }The purpose of this document is to explain the \synbad syntax among with some simple usage examples. 
+
+\synbad is an extended regular expression language, for usage mainly in Natural Language Processing (NLP) applications. It uses the some extended POSIX Regular Expression structures among other, more specific to NLP domain.
+
+The name, \synbad (written also: Synnbad, with double nn, instead of n!) is an acronym of Synonyms [are] not bad. This would suggest that the main concepts of \synbad would be centred among synonyms processing, using different dictionaries. 
+
+\section{Syntax}
+
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt}
+\setlength{\grammarindent}{12em}
+
+\begin{grammar}
+
+<expression> ::= <token> \lit{ } <expression> | <token>
+
+<token> ::= <pattern> \alt <pattern> \lit{*} \alt <pattern> \lit{?} \alt <pattern> \lit{\{} <number> \lit{,} <number> \lit{\}}
+
+<pattern> ::= <word> \alt \syntax{\verb='<'=} <POS\_Structure> \syntax{\verb='>'=} \alt \lit{[} <synonym> \lit{]} \alt \lit{\$} <variable> 
+
+<POS_Structure> ::= <POS> (\lit{\#} <variable>)?
+
+<POS> ::= <PennPOS> \alt <GenericPOS>
+
+<synonym> ::= <word> (\lit{|} <POS>)? (\lit{\#} <variable>)?
+
+<number> ::= [1-9] [0-9]*
+
+<word> ::= [a-z]+
+
+<variable> ::= [a-z0-9]+
+
+<PennPOS> ::= 	\lit{JJ} | \lit{RB} | \lit{DT} | \lit{TO} | \lit{RP} | \lit{RBR} | \lit{RBS} | \lit{LS} 
+				\alt \lit{JJS} | \lit{JJR} | \lit{FW} | \lit{NN} | \lit{NNPS} | \lit{VBN} | \lit{VB} | \lit{VBP} 
+				\alt \lit{PDT} | \lit{WP\$} | \lit{PRP} | \lit{MD} | \lit{SYM} | \lit{WDT} | \lit{VBZ} | \lit{\"} 
+				\alt \lit{\#} | \lit{WP} | \lit{'} | \lit{IN} | \lit{\$} | \lit{VBG} | \lit{EX} | \lit{POS} | \lit{(} 
+				\alt \lit{VBD} | \lit{)} | \lit{.} | \lit{,} | \lit{UH} | \lit{NNS} | \lit{CC} | \lit{CD} | \lit{NNP} 
+				\alt \lit{PP\$} | \lit{:} | \lit{WRB}
+
+<GenericPOS> ::= \lit{\#*} | \lit{VB*} | \lit{RB*} | \lit{NN*} | \lit{JJ*}
+
+\end{grammar}
+
+\section{Example}
+
+Considering the complexity of the rules, some examples are given in order to simplify most of the logic:
+
+\begin{itemize}
+	\item POS_Structure encapsulates a part of speech structure, given by the Penn POS Tag System or a more simple formalisation, called Generic POS. 
+	\subitem Also, POS_Structure offers the possibility of retrieving the matched structure as a variable, given after the \# sign.
+	\item Generic POS contains five values: 
+		\subitem \#* which groups all the punctuation into one single category
+		\subitem VB* which groups all the verb tags
+		\subitem RB* which groups all the adverb tags
+		\subitem NN* which groups all the noun tags		
+		\subitem JJ* which groups all the adjective tags
+	\item the synonym structure, does a comparison based on synonyms:
+		\subitem using the \verb=|= some POS restictions could be decided, based on the POS rules
+		\subitem Also, synonym offers the possibility of retrieving the matched structure as a variable, given after the \# sign.
+\end{itemize}
+
+Based on the rules described above, this would be a valid pattern, containing most of the \synbad capabilities:
+
+\begin{center}
+	\begin{verbatim}
+		$name <#*>? do you <VB*>* [some|RB*] [water#object] 
+	\end{verbatim}
+\end{center}
+
+And given the following sentence:
+\begin{center}
+	\begin{verbatim}
+		Ovidiu , do you want some water
+	\end{verbatim}
+\end{center}
+
+The result of the matching would be: $\$name \leftarrow Ovidiu$ and $\#object \leftarrow water$, while \verb=<#*>?= will match , and \verb=<VB*>*= will match the single verb \textit{want}.
+
+\end{document}

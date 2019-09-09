@@ -1,0 +1,97 @@
+<!--
+  ~ Copyright (c) Ovidiu Serban, ovidiu@roboslang.org
+  ~               web:http://ovidiu.roboslang.org/
+  ~ All Rights Reserved. Use is subject to license terms.
+  ~
+  ~ This file is part of AgentSlang Project (http://agent.roboslang.org/).
+  ~
+  ~ AgentSlang is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License and CECILL-B.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ The CECILL-B license file should be a part of this project. If not,
+  ~ it could be obtained at  <http://www.cecill.info/>.
+  ~
+  ~ The usage of this project makes mandatory the authors citation in
+  ~ any scientific publication or technical reports. For websites or
+  ~ research projects the AgentSlang website and logo needs to be linked
+  ~ in a visible area.
+  -->
+
+<!--Todo; Fix the hearthbeat         -->
+
+<project>
+    <profile name="profile1" hostname="machine1">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService.xml</config>
+            </service>
+            <service name="org.ib.service.topic.TopicService">
+                <port>1220</port>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine1</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.ib.gui.monitor.MonitorComponent">
+                <port>1233</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>org.ib.bricks.Test1.debug@machine1:1234</subscribe>
+                <subscribe>org.ib.bricks.Test2.debug@machine1:1235</subscribe>
+                <subscribe>org.ib.bricks.Test2.debug@machine1:1236</subscribe>
+                <!--<subscribe>org.ib.bricks.Test1.heartbeat@machine1:1234</subscribe>-->
+                <!--<subscribe>org.ib.bricks.Test2.heartbeat@machine1:1235</subscribe>-->
+                <!--<subscribe>org.ib.bricks.Test2.heartbeat@machine1:1236</subscribe>-->
+            </component>
+
+            <component name="org.ib.bricks.Test1">
+                <port>1234</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>StringData.Test1@test1</publish>
+                <publish>StringData.Test2@test2</publish>
+            </component>
+
+            <component name="org.ib.bricks.Test2">
+                <port>1235</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>StringData.Test1@machine1:1234</subscribe>
+            </component>
+
+            <component name="org.ib.bricks.Test2">
+                <port>1236</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>StringData.Test2@machine1:1234</subscribe>
+            </component>
+
+            <!--<component name="org.ib.component.SystemMonitorComponent">-->
+                <!--<port>1237</port>-->
+                <!--<scheduler>machine1:1222</scheduler>-->
+                <!--<subscribe>StringData.Test2@machine1:1234</subscribe>-->
+            <!--</component>-->
+        </components>
+    </profile>
+</project>

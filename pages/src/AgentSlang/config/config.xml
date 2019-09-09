@@ -1,0 +1,160 @@
+<!--
+  ~ Copyright (c) Ovidiu Serban, ovidiu@roboslang.org
+  ~               web:http://ovidiu.roboslang.org/
+  ~ All Rights Reserved. Use is subject to license terms.
+  ~
+  ~ This file is part of AgentSlang Project (http://agent.roboslang.org/).
+  ~
+  ~ AgentSlang is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License and CECILL-B.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ The CECILL-B license file should be a part of this project. If not,
+  ~ it could be obtained at  <http://www.cecill.info/>.
+  ~
+  ~ The usage of this project makes mandatory the authors citation in
+  ~ any scientific publication or technical reports. For websites or
+  ~ research projects the AgentSlang website and logo needs to be linked
+  ~ in a visible area.
+  -->
+
+<project>
+    <profile name="profile1" hostname="machine1">
+        <scheduler>
+            <port>1222</port>
+            <timeout>100</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>cnsService.xml</config>
+            </service>
+            <service name="org.ib.service.topic.TopicService">
+                <port>1220</port>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine1</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.agent.slang.in.proxy.VoiceProxyComponent">
+                <port>1232</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>StringData.Text@voice.data</publish>
+                <!--<voiceProxy>1245</voiceProxy>-->
+                <!--<voiceBTuuid>1101</voiceBTuuid>-->
+                <voiceBTuuid>0000110100001000800000805F9B34FB</voiceBTuuid>
+                <voiceBTmac>0011675F2C90</voiceBTmac>
+            </component>
+
+            <component name="org.ib.gui.monitor.MonitorComponent">
+                <port>1233</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>org.agent.slang.in.proxy.VoiceProxyComponent.debug@machine1:1232</subscribe>
+                <subscribe>org.agent.slang.inout.TextComponent.debug@machine1:1234</subscribe>
+                <subscribe>org.agent.slang.out.marytts.MaryComponent.debug@machine1:1235</subscribe>
+                <subscribe>org.agent.slang.annotation.SennaComponent.debug@machine1:1236</subscribe>
+                <subscribe>org.agent.slang.annotation.MetaphoneEncodingComponent.debug@machine1:1237</subscribe>
+                <subscribe>org.agent.slang.dm.template.TemplateExtractor.debug@machine1:1238</subscribe>
+                <subscribe>org.agent.slang.dm.template.CommandInterpreter.debug@machine1:1239</subscribe>
+                <subscribe>org.agent.slang.dm.template.DialogueInterpreter.debug@machine1:1240</subscribe>
+
+                <subscribe>org.agent.slang.in.proxy.VoiceProxyComponent.heartbeat@machine1:1232</subscribe>
+                <subscribe>org.agent.slang.inout.TextComponent.heartbeat@machine1:1234</subscribe>
+                <subscribe>org.agent.slang.out.marytts.MaryComponent.heartbeat@machine1:1235</subscribe>
+                <subscribe>org.agent.slang.annotation.SennaComponent.heartbeat@machine1:1236</subscribe>
+                <subscribe>org.agent.slang.annotation.MetaphoneEncodingComponent.heartbeat@machine1:1237</subscribe>
+                <subscribe>org.agent.slang.dm.template.TemplateExtractor.heartbeat@machine1:1238</subscribe>
+                <subscribe>org.agent.slang.dm.template.CommandInterpreter.heartbeat@machine1:1239</subscribe>
+                <subscribe>org.agent.slang.dm.template.DialogueInterpreter.heartbeat@machine1:1240</subscribe>
+            </component>
+
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1234</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>StringData.Text@text.data</publish>
+                <subscribe>AudioData.Text@machine1:1235</subscribe>
+                <subscribe>meta.AnnotatedData.Text@machine1:1237</subscribe>
+                <subscribe>command.AnnotatedData.Text@machine1:1238</subscribe>
+            </component>
+
+            <component name="org.agent.slang.out.marytts.MaryComponent">
+                <port>1235</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>AudioData.Text@voice.data</publish>
+                <subscribe>inter.AnnotatedData.Text@machine1:1239</subscribe>
+                <subscribe>inter.AnnotatedData.Text@machine1:1240</subscribe>
+            </component>
+
+            <!--<component name="org.agent.slang.out.ispeech.ISpeechTTSComponent">-->
+                <!--<port>1235</port>-->
+                <!--<scheduler>machine1:1222</scheduler>-->
+                <!--<publish>AudioData.Text@voice.data</publish>-->
+                <!--<subscribe>inter.AnnotatedData.Text@machine1:1239</subscribe>-->
+                <!--<subscribe>inter.AnnotatedData.Text@machine1:1240</subscribe>-->
+                <!--<apiKey>afc563dd5a61333a4cce3fc9f177e1fa</apiKey>-->
+            <!--</component>-->
+
+            <component name="org.agent.slang.annotation.SennaComponent">
+                <port>1236</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>senna.AnnotatedData.Text@senna.data</publish>
+                <subscribe>StringData.Text@machine1:1234</subscribe>
+                <subscribe>StringData.Text@machine1:1232</subscribe>
+                <sennaPath>senna</sennaPath>
+                <sennaParams>-pos,-ner,-chk</sennaParams>
+            </component>
+
+            <component name="org.agent.slang.annotation.MetaphoneEncodingComponent">
+                <port>1237</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>meta.AnnotatedData.Text@metaphone.data</publish>
+                <subscribe>senna.AnnotatedData.Text@machine1:1236</subscribe>
+            </component>
+
+            <component name="org.agent.slang.dm.template.TemplateExtractor">
+                <port>1238</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>command.AnnotatedData.Text@templateExc.command.data</publish>
+                <publish>dialogue.AnnotatedData.Text@templateExc.dialogue.data</publish>
+                <subscribe>senna.AnnotatedData.Text@machine1:1236</subscribe>
+                <commandModel>commandModel.xml</commandModel>
+                <dialogueModel>dialogueTemplate.xml</dialogueModel>
+            </component>
+
+            <component name="org.agent.slang.dm.template.CommandInterpreter">
+                <port>1239</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>inter.AnnotatedData.Text@command.data</publish>
+                <subscribe>command.AnnotatedData.Text@machine1:1238</subscribe>
+                <commandModel>commandModel.xml</commandModel>
+            </component>
+
+            <component name="org.agent.slang.dm.template.DialogueInterpreter">
+                <port>1240</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>inter.AnnotatedData.Text@dialogue.data</publish>
+                <subscribe>dialogue.AnnotatedData.Text@machine1:1238</subscribe>
+                <dialogueModel>dialogueGenerator.xml</dialogueModel>
+            </component>
+        </components>
+    </profile>
+</project>

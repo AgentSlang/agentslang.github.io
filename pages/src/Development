@@ -1,0 +1,30 @@
+ ! NOTE ! Please use the same jdk version as for the zeroMQ compile
+
+Create the project in your favorite IDE.
+There are 5 modules to be use:
+	- MyBlock - which is the base platform for all the system
+	- Syn!bad - this is the module use for information extraction
+	- AgentSlang - this the collection of all the modules available
+	- AndroSlang - the voice app for android
+	- Benchmark - the tests on various platforms
+
+For development you need to import the first 3 modules
+
+To run:
+
+1. MyBlock to run: 
+	runtime variables:	
+	-Djava.library.path=/usr/local/lib 
+	
+	entry class: org.ib.component.ComponentRunner
+	program parameters: config.xml profile1
+
+2. AgentSlang to run: 
+	runtime variables:	
+	-Djava.library.path=/usr/local/lib 
+	
+	entry class: org.ib.component.ComponentRunner
+	program parameters: config.xml profile1
+
+3. Senna annotator
+	it needs tha path to the senna executable. configure is in config.xml

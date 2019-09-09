@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- 
+THIS FILE IS PROVIDED AS PART OF MARC PLATFORM
+PLEASE DO NOT MODIFY MANUALLY. USE THE GUI INTERFACE.
+
+COPYRIGHTS : LIMSI CNRS (FRANCE)
+Author : Matthieu COURGEON 
+--><node id="config">
+
+<window always_on_top="false" autocenter="false" borders="true" fullscreen="false" height="900" low_res="false" title="Multimodal Affective and Reactive Character" width="1200" x="10" y="10"/>
+
+	<frame_rate value="60"/>
+
+	<interfaces>
+		<FACE_IN active="false" port="2009" type="UDP-Plain"/>
+		<ASP_TP active="true" bypassPD="true"/>
+		<OPEN_MARY active="false" path="c:\Users\{USER_NAME}\MARY TTS\" path_mary_v4="" path_mary_v5="C:\Program Files (x86)\marytts-5.1\target\marytts-5.1-SNAPSHOT\" state="disabled"/>
+		<SN_IN active="false"/>
+		<BML_ES active="true" type="TCP"/>
+		<IMG_ST active="false" emotionml_port="5000" port="5000" target="127.0.0.1" type="RGB_BYTES"/>
+		<APPRAISAL active="true" type="TCP"/>
+		<SMARTI Smarti_out_cc_port="7000" Smarti_out_cc_target="129.175.156.198" Smarti_out_port="7000" Smarti_out_target="129.175.156.145" Smarti_send_delay="200" active="false" smarti_eyesDist="0.064" smarti_screen_h="2.0" smarti_screen_offset="0.4" smarti_screen_w="2.6" smarti_trans="0,0,0,135" smooth_angle="50" smooth_position="35" track_in_port="1989"/>
+	<EVE active="false"/>
+<nVidia3dVision active="false"/>
+<ART_HUMAN active="false"/>
+</interfaces>
+
+	<environement name="New York"/>
+
+	<additional_GUI appraisal="false" bml="false" debug="false" pose="false"/>
+
+	<optional_features bg_color="255,255,255" ground="true"/>
+
+	<models autoblink="true" saccadic="true">
+<model bml_in="4020" bml_out="4021" eml_in="4022" id="Narrative" name="Mary" turn="0.0" variation="1" x="-0.07" y="0.0" z="2.74"/>
+</models>
+
+	<ShadowMapping level="1"/>
+
+	<TextureQuality level="0"/>
+
+	<BodyRender enabled="true"/>
+
+	<BodyShadow enabled="true"/>
+	
+	<BodySelfShadow enabled="true"/>
+	
+	
+	<BodyShadowAntialias enabled="false"/>
+
+	<stereoRB enabled="false"/>
+	
+	<!-- THIS ATTRIBUTE IS OBSOLETE IN VERSION 5.0 -->
+	<BSSRDF enabled="true" intensity="2.0"/>
+
+
+<initialisation_script path=""/>
+<TextureCompression enabled="false"/>
+<ScreenSpaceReflection enabled="false"/>
+<CameraBloom enabled="false"/>
+<user_shadow enabled="false"/>
+<stereo_horizontal enabled="false"/>
+<stereo_vertical enabled="false"/>
+<SSAO enabled="false"/>
+</node>
