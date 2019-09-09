@@ -119,14 +119,18 @@ a topic name which is published by another component before+ “@” + Publisher
 
 Here you can find the list of available components of agentslang with their potential input and output topics. You can make your own configuration of agentslang just by putting right components together to publish and receive data from each other in order to reach your goal.
 In some components there are some mandatory or optional configuration parameters in addition to regular input and output parameters. Setting values for the optional ones is optional and mandatory for mandatory ones. Take the abstract example for more clarifications.
+```
 org.agent.slang.test.Component1
+```
 Mandatory Configuration Parameters: 
+```
 manParam1,
 manParam2
-
+```
 Optional Configuration Parameters: 
+```
 opParam1
-
+```
 Input Data Types: 
      
 Output Channels	Output Data Types
