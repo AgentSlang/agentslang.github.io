@@ -105,13 +105,18 @@ There are 4 important parts of the config file :
 </component>
 ```
 •	component name is the exact name of the Java class implementing the component, including the package name.
+
 •	port is the unique port identifier of the component. It has to be a valid unused TCP port.
+
 •	scheduler is the identification of the scheduler where the component should connect.
+
 •	subscribe refers to the subscription topics. The subscription topics have to be previously publish by another component. As you can see in before mentioned example, it consists of the following format:
 a topic name which is published by another component before+ “@” + Publisher machine name + “:” + Port ID of the publisher machine. 
+
 •	publish refers to all the external topics that are published by a component. It includes a publishing topic name and an output channel. 
 
 3.	Components 
+
 Here you can find the list of available components of agentslang with their potential input and output topics. You can make your own configuration of agentslang just by putting right components together to publish and receive data from each other in order to reach your goal.
 In some components there are some mandatory or optional configuration parameters in addition to regular input and output parameters. Setting values for the optional ones is optional and mandatory for mandatory ones. Take the abstract example for more clarifications.
 org.agent.slang.test.Component1
