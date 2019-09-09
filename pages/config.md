@@ -1,6 +1,7 @@
 #	Basic Config File
 
 basic-config.xml
+```xml
 <project>
     <profile name="profile1" hostname="machine1">
         <scheduler>
@@ -68,6 +69,8 @@ basic-config.xml
         </components>
     </profile>
 </project>
+```
+
 2.	Notes
 Agentslang uses a message passing mechanism in order to exchange data inside different modules as well as interacting with external world. Each component receives data using a subscription to a topic. Afterward, that component processes received data and publishes its output. This output can be used by another component or external application using a subscription to that topic as mentioned previously. 
 There are 4 important parts of the config file:
@@ -75,12 +78,15 @@ There are 4 important parts of the config file:
 <profile name="profile1" hostname="machine1">
 2.	The profile name (profile1) is used by the command line tool start.sh (start.bat).
 3.	The scheduler is one important component that provides the system with a synchronized heartbeat. It has a port associated so that the other components can connect.
+```xml
 <scheduler>
   <port>1222</port>
   <timeout>1000</timeout>
 </scheduler>
+```
 4.	Services / Clients: We’ll leave the services and clients to the basic configuration for now. The CNService advanced configuration is described in the “How to run WoZ 2 Machines Version of agentslang for windows or Linux” tutorials.
 5.	Components
+```xml
 <component name="Component1">
   <port>pubPortID</port>
   <scheduler>schedMachineName:schedPort</scheduler>
@@ -93,6 +99,7 @@ There are 4 important parts of the config file:
   <subscribe>pubTopicName@schedMachineName:pubPortID</subscribe>
   <publish>…</publish>
 </component>
+```
 •	component name is the exact name of the Java class implementing the component, including the package name.
 •	port is the unique port identifier of the component. It has to be a valid unused TCP port.
 •	scheduler is the identification of the scheduler where the component should connect.
@@ -117,6 +124,7 @@ Input Data Types:
 Output Channels	Output Data Types
 …	…
 Their values can be defined like the following example:
+```xml
 <component name=" org.agent.slang.test.Component1">
   <port>PortID</port>
   <scheduler>schedMachineName:schedPort</scheduler>
@@ -126,6 +134,7 @@ Their values can be defined like the following example:
   <subscribe>…</subscribe>
   <publish>…</publish>
 </component>
+```
 Note: In order to have a better understanding of how to create a new configuration, it is recommended to read “How to run …” tutorials first.
 
  
