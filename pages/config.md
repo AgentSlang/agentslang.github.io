@@ -71,7 +71,7 @@ basic-config.xml
 </project>
 ```
 
-2.	Notes
+# 2.	Notes
 Agentslang uses a message passing mechanism in order to exchange data inside different modules as well as interacting with external world. Each component receives data using a subscription to a topic. Afterward, that component processes received data and publishes its output. This output can be used by another component or external application using a subscription to that topic as mentioned previously. 
 There are 4 important parts of the config file:
 1.	The profile tag, defined under the name attribute. The profile has one hostname attached. For now, we consider just a single machine configuration. For multiple machines and advanced configurations of the CNService please refer to “How to run WoZ 2 Machines Version of agentslang for windows or Linux” tutorials.
