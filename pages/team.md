@@ -1,7 +1,7 @@
 # Contributors
 
 - [Alexandre PAUCHET](http://asi.insa-rouen.fr/enseignants/~apauchet/), Project lead
-- [julien SAUNIER] (http://pagesperso.litislab.fr/~jsaunier/) Co-Supervisor
+- [julien SAUNIER](http://pagesperso.litislab.fr/~jsaunier/), Co-Supervisor
 - [Naser GHANNAD](), core contributor & maintainer
 - [Ovidiu Șerban](http://ovidiu.roboslang.org/), original author, previous core maintainer, previous project lead
 
