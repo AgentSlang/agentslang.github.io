@@ -33,3 +33,10 @@ Our proposal includes:
 
 - Syn!bad for Synonym-based keyword extraction
 - Simple Dialogue Manager for narrative models
+- Python component, you can send and recive data via UDP connection
+- Video Conferencing, for recive streaming video from another machine
+- Audio Player, for play a audio in Java
+- Eye Tracking with using Toobi eye tracker
+- Head & Eye tracking with using OpenFace 
+- Face Reader for using Face reader software to extract the Emotion and some feature from the face
+
