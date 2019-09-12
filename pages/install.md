@@ -19,9 +19,8 @@
 	5. Create a folder in order to clone the agentslang source code and go to that folder.
 	6. Clone agentslang sourcecode from INSA git using following command (enter your username and password when you asked for).
 		git clone https://github.com/AgentSlang/agentslang.github.io
-		in the folder agemtslang.github.io/pages/src you can find the source code
 	7. Go to the following folder inside cloned items.
-		{Path}/nareca_final_version/Code/AgentSlang
+		in the folder {your path}/agemtslang.github.io/pages/src you can find the source code
 	8. Give permission to run gradlew bash using the following command.
 		chmod u+x gradlew
 	9. Build it using the following command.
@@ -78,13 +77,12 @@
 	4.Create a folder in order to clone the agentslang source code.
 	5.Clone agentslang sourcecode from INSA git using the following URL (enter your username and password when you asked for).
 		https://github.com/AgentSlang/agentslang.github.io
-		in the folder agemtslang.github.io/pages/src you can find the source code
 	6.Download Gradle and extract it in your system.
 		https://gradle.org/releases/
 	7.Configure Gradle bin path in “Environment Variables”.
 		{Path}\gradle-4.10.2\bin
 	8.Open a Command prompt and go to the following folder.
-		cd {Path}\nareca_final_version\Code\AgentSlang 
+		in the folder {your path}/agemtslang.github.io/pages/src you can find the source code
 	9.Build it using the following command.
 		gradlew installDist
 	10.The output execuatble version will be in the following folder.
