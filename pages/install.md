@@ -1,10 +1,10 @@
 
 # Installation
-	for running this component you need to install 
-	Java JDK 1.8 (jdk-8u191-windows-x64)
-	Python 3
-	gradle-4.10.2-bin
-	chromedriver
+	we use this version of these softwares for the running agentslang 
+		Java JDK 1.8 (jdk-8u191-windows-x64)
+		Python 3
+		gradle-4.10.2-bin
+		chromedriver
  
 # Linux installation
 	How to build “agentslang” on Ubuntu? 
