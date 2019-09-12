@@ -771,7 +771,7 @@ public class MarcBMLTranslationComponent extends LivingComponent implements Marc
 	        			message = generateBMLAudio(bml, data.getData(), userAudioPath+newState ,"wav");
    		}
 	        }
-  		//System.out.println("\n\n µµµµµµµµµµdata.getEmotionalAppraisal()"+ data.getEmotionalAppraisal()+"\n\n");
+  		//System.out.println("\n\n data.getEmotionalAppraisal()"+ data.getEmotionalAppraisal()+"\n\n");
   		if(data.getEmotionalAppraisal()=="" ){
   			resetSmilingFace(bml);
   		}
@@ -811,23 +811,23 @@ public class MarcBMLTranslationComponent extends LivingComponent implements Marc
 		bmlSmilingFace.AddFork(new BmlFork("marc",bmlSmilingFace.id,(float)0.2));
 		
 		//**************************************************************
-		// sourcils légèrement up
+		// sourcils lement up
 		bmlSmilingFace.AddFace(new Face("marc","1",0.3f,0.7f,"BOTH"));
 		// Joues 
 		//Bouche: Sourire
-		bmlSmilingFace.AddFace(new Face("marc","12",0.8f,0.7f,"BOTH"));// Etirer le coin des lèvres (sourire): Tire les coins des lèvres de façon diagonale vers les os des joues (sourire) 
+		bmlSmilingFace.AddFace(new Face("marc","12",0.8f,0.7f,"BOTH"));// Etirer le coin des lres (sourire): Tire les coins des lres de fan diagonale vers les os des joues (sourire) 
 		// Joues 
-		bmlSmilingFace.AddFace(new Face("marc","6",0.2f,0.7f,"BOTH"));// Lever la joue: Relève les joues
-		// Définir deux catégories d'expressions de sourire: 
-			// expression1: AU12+6+5+25 (bouche légérement ouverte)
-			// expression2: AU12+6+5 (bouche fermée)
+		bmlSmilingFace.AddFace(new Face("marc","6",0.2f,0.7f,"BOTH"));// Lever la joue: Rele les joues
+		// Dinir deux catories d'expressions de sourire: 
+			// expression1: AU12+6+5+25 (bouche lement ouverte)
+			// expression2: AU12+6+5 (bouche ferm)
 		int expression1AddAu25 = 1 + (int)(Math.random() * ((2 - 1) + 1));
 	//	System.out.println("########################## expression "+expression1AddAu25);
 		if (expression1AddAu25==1)
 		{// Bouche
-			bmlSmilingFace.AddFace(new Face("marc","25",0.3f,0.7f,"BOTH"));//*** Séparer les lèvres: Ouvre la bouche et sépare très légèrement les lèvres 
+			bmlSmilingFace.AddFace(new Face("marc","25",0.3f,0.7f,"BOTH"));//*** Sarer les lres: Ouvre la bouche et sare tr lement les lres 
 		}
-		//bmlOneAu.AddFace(new Face("marc","26",0.1f,1.0f,"BOTH"));//Baisser la machoire: Ouvre la bouche au point où il y a un espace entre les dents
+		//bmlOneAu.AddFace(new Face("marc","26",0.1f,1.0f,"BOTH"));//Baisser la machoire: Ouvre la bouche au point oil y a un espace entre les dents
 	    //**************************************************************
 				
 		
