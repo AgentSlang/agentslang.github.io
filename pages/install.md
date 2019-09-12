@@ -27,6 +27,7 @@
 		./gradlew installDist 
 	10. The output execuatble version will be in the following folder.
 		{Path}/AgentSlang/build/install/AgentSlang
+	11. in this path you can find readme.html it's show you can run the agentslang with confing files.	
 
 # How to run Automatic Version of agentslang (Auto1muser) on Linux (Ubuntu)? 
 	1. Download agentslang executables from the following URL.
@@ -86,7 +87,8 @@
 	9.Build it using the following command.
 		gradlew installDist
 	10.The output execuatble version will be in the following folder.
-		{Path}/nareca_final_version/code/AgentSlang/AgentSlang/build/install/AgentSlang
+		{Path}/AgentSlang/build/install/AgentSlang
+	11.in this path you can find readme.html it's show you can run the agentslang with confing files.	 	
 
 
 # How to run Automatic Version of agentslang (Auto1muser) on Windows? 
