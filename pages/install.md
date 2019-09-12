@@ -26,7 +26,7 @@
 	9. Build it using the following command.
 		./gradlew installDist 
 	10. The output execuatble version will be in the following folder.
-		{Path}/nareca_final_version/code/AgentSlang/AgentSlang/build/install/AgentSlang
+		{Path}/AgentSlang/build/install/AgentSlang
 
 # How to run Automatic Version of agentslang (Auto1muser) on Linux (Ubuntu)? 
 	1. Download agentslang executables from the following URL.
