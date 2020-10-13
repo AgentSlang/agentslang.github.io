@@ -85,6 +85,10 @@ applicationDistribution.into('javadoc') {
     from(javadoc)
 }
 
+applicationDistribution.into('python') {
+    from 'python'
+}
+
 applicationDistribution.into('Nareca') {
     from '../Nareca'
 }
