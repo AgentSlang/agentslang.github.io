@@ -1,0 +1,63 @@
+
+<project>
+    <profile name="profile1" hostname="machine1">
+        <scheduler>
+            <port>1222</port>
+            <timeout>1000</timeout>
+        </scheduler>
+
+        <services>
+            <service name="org.ib.service.cns.CNService">
+                <port>1221</port>
+                <config>../cns_services/cns_service_single_computer.xml</config>
+            </service>
+            <service name="org.ib.service.topic.TopicService">
+                <port>1220</port>
+            </service>
+        </services>
+
+        <clients>
+            <client name="org.ib.service.cns.CNClient">
+                <host>127.0.0.1</host>
+                <port>1221</port>
+            </client>
+            <client name="org.ib.service.topic.TopicClient">
+                <host>machine1</host>
+                <port>1220</port>
+            </client>
+        </clients>
+
+        <components>
+            <component name="org.ib.logger.LogComponent">
+                <port>1232</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>org.agent.slang.inout.TextComponent.debug@machine1:1233</subscribe>
+                <subscribe>org.agent.slang.in.zeromq.ZmqRecvString.debug@machine1:1234</subscribe>
+                <subscribe>org.agent.slang.out.zeromq.ZmqSendString.debug@machine1:1235</subscribe>
+            </component>
+
+            <component name="org.agent.slang.inout.TextComponent">
+                <port>1233</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>TextComponent.text.response@text.data</publish>
+                <subscribe>StringResponse.Text@machine1:1234</subscribe>
+            </component>
+
+            <component name="org.agent.slang.in.zeromq.ZmqRecvString">
+                <port>1234</port>
+                <scheduler>machine1:1222</scheduler>
+                <publish>StringResponse.Text@text.data</publish>
+                <inPort>6669</inPort>
+                <inTopicName>addressee_processed_data</inTopicName>
+            </component>
+
+            <component name="org.agent.slang.out.zeromq.ZmqSendString">
+                <port>1235</port>
+                <scheduler>machine1:1222</scheduler>
+                <subscribe>TextComponent.text.response@machine1:1233</subscribe>
+                <outPort>6668</outPort>
+                <outTopicName>addressee_context_data</outTopicName>
+            </component>
+        </components>
+    </profile>
+</project>
