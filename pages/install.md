@@ -1,6 +1,6 @@
 
 # Installation
-	we use this version of these softwares for the running agentslang 
+	we use specific versions of these softwares in AgentSlang 
 		Java JDK 1.8 (jdk-8u191-windows-x64)
 		Python 3
 		gradle-4.10.2-bin
@@ -27,7 +27,7 @@
 		./gradlew installDist 
 	10. The output execuatble version will be in the following folder.
 		{Path}/AgentSlang/build/install/AgentSlang
-	11. in this path you can find readme.html it's show you can run the agentslang with confing files.	
+	11. In this path you can find readme.html which contains command examples to run agenslang with some config files.	
 
 # How to run Automatic Version of agentslang (Auto1muser) on Linux (Ubuntu)? 
 	1. Download agentslang executables from the following URL.
@@ -59,7 +59,7 @@
 	9. Give permission to run AgentSlang bash using the following command.
 		chmod u+x AgentSlang
 	10. Now run “agentslang” using the following command.
-		./AgentSlang -config ../config/config-nareca-auto-1m-user.xml -profile profile1
+		./AgentSlang -config ../config/test_configurations/basic_test.xml -profile profile1
 		If you encountered the following execption:
 		Exception in thread "main" java.awt.AWTError: Assistive Technology not found: org.GNOME.Accessibility.AtkWrapper
 		First use this command.
@@ -69,44 +69,44 @@
 	 
 	 
 # How to build “agentslang” on Windows? 
-	1.Download and install JDK8.
+	1. Download and install JDK8.
 		https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-	2.Define JAVA_HOME variable for JDK path in “Environment Variables”.
+	2. Define JAVA_HOME variable for JDK path in “Environment Variables”.
 		JAVA_HOME = C:\Program Files\Java\jdk1.8.0_191
-	3.Download and install TortoiseGit.
+	3. Download and install TortoiseGit.
 		https://tortoisegit.org/download/
-	4.Create a folder in order to clone the agentslang source code.
-	5.Clone agentslang sourcecode from INSA git using the following URL (enter your username and password when you asked for).
+	4. Create a folder in order to clone the agentslang source code.
+	5. Clone agentslang sourcecode from INSA git using the following URL (enter your username and password when you asked for).
 		https://github.com/AgentSlang/agentslang.github.io
-	6.Download Gradle and extract it in your system.
+	6. Download Gradle and extract it in your system.
 		https://gradle.org/releases/
-	7.Configure Gradle bin path in “Environment Variables”.
+	7. Configure Gradle bin path in “Environment Variables”.
 		{Path}\gradle-4.10.2\bin
-	8.Open a Command prompt and go to the following folder.
+	8. Open a Command prompt and go to the following folder.
 		in the folder {your path}/agemtslang.github.io/pages/src you can find the source code
-	9.Build it using the following command.
+	9. Build it using the following command.
 		gradlew installDist
-	10.The output execuatble version will be in the following folder.
+	10. The output execuatble version will be in the following folder.
 		{Path}/AgentSlang/build/install/AgentSlang
-	11.in this path you can find readme.html it's show you can run the agentslang with confing files.	 	
+	11. In this path you can find readme.html which contains command examples to run agenslang with some config files.	 	
 
 
 # How to run Automatic Version of agentslang (Auto1muser) on Windows? 
 
-	1.Download agentslang executables from the following URL.
+	1. Download agentslang executables from the following URL.
 		TODO: a link for downloading should be put here.
 		Point: If you already have built agentslang from source code, you can directly use the executable you built.
-	2.Download and install MARC Toolkit Version 14.3.0 from the following URL. 
+	2. Download and install MARC Toolkit Version 14.3.0 from the following URL. 
 		TODO: a link for downloading should be put here.
-	3.Download and install JRE8.
+	3. Download and install JRE8.
 		https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
-	4.Configure JRE8 bin path in “Environment Variables”.
+	4. Configure JRE8 bin path in “Environment Variables”.
 		{Path}\jre1.8.0_191\bin
-	5.Download and install Gstreamer 1.0 (a Complete installation is recommended).
+	5. Download and install Gstreamer 1.0 (a Complete installation is recommended).
 		https://gstreamer.freedesktop.org/data/pkg/windows/1.6.4/
-	6.Configure Gstreamer bin path in “Environment Variables”.
+	6. Configure Gstreamer bin path in “Environment Variables”.
 		{Path}\gstreamer\1.0\x86_64\bin
-	7.In order to use Google ASR it is necessary to follow these steps.
+	7. In order to use Google ASR it is necessary to follow these steps.
 		Install Google Chrome Browser.
 		Open Chrome, go to its Settings, then Advanced → HTTPS/SSL → Manage Certificates, go to the "Authorities" tab and import “cert.crt” from the following folder.
 		{Path}/agentslang/config/
@@ -117,10 +117,10 @@
 		{Path}/agentslang/bin
 		Set “chromedriver.exe” path in “Environment Variables”.
 		{Path}/agentslang/bin
-	8.Run MARC toolkit and launch “Real time Animation”.
-	9.Go to the following folder.
+	8. Run MARC toolkit and launch “Real time Animation”.
+	9. Go to the following folder.
 		cd {Path}/agentslang/bin
-	10.Now run “agentslang” using the following command.
-		AgentSlang -config ../config/config-nareca-auto-1m-user.xml -profile profile1
+	10. Now run “agentslang” using the following command.
+		AgentSlang -config ../config/test_configurations/basic_test.xml -profile profile1
 
-	Recommendation: It is better to have a sound output device to hear the sound of the agent, an input audio device to interact orally with the agent and a webcam+microphone in order to capture voice and video of your experiment.
+	Recommendation: It's better to have a sound output device to hear the sound of the agent, an input audio device to interact orally with the agent and a webcam+microphone in order to capture voice and video of your experiment.
