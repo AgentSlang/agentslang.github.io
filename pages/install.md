@@ -1,6 +1,6 @@
 
 # Installation
-	we use this version of these softwares for the running agentslang 
+	we use specific versions of these softwares in AgentSlang 
 		Java JDK 1.8 (jdk-8u191-windows-x64)
 		Python 3
 		gradle-4.10.2-bin
