@@ -142,9 +142,9 @@ Their values can be defined like the following example:
 <component name=" org.agent.slang.test.Component1">
   <port>PortID</port>
   <scheduler>schedMachineName:schedPort</scheduler>
-  < manParam1>value_manParam1</manParam1>
-  < manParam2>value_manParam2</manParam2>
-  < opParam1>value_opParam1</ opParam1>
+  <manParam1>value_manParam1</manParam1>
+  <manParam2>value_manParam2</manParam2>
+  <opParam1>value_opParam1</opParam1>
   <subscribe>…</subscribe>
   <publish>…</publish>
 </component>

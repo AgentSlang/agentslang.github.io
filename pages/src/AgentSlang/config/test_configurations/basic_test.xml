@@ -80,7 +80,6 @@
                 <port>1236</port>
                 <scheduler>machine1:1222</scheduler>
                 <subscribe>StringData.Test2@machine1:1234</subscribe>
-                <out_port>
             </component>
         </components>
     </profile>
