@@ -1,2 +1,5 @@
+# Cereproc voice files
 *.voice
+
+# Cereproc license files
 *.lic
