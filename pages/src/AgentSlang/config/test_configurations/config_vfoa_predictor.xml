@@ -32,8 +32,8 @@
                 <port>1232</port>
                 <scheduler>machine1:1222</scheduler>
                 <subscribe>org.agent.slang.inout.TextComponent.debug@machine1:1233</subscribe>
-                <subscribe>org.agent.slang.in.zeromq.ZmqRecvString.debug@machine1:1234</subscribe>
-                <subscribe>org.agent.slang.out.zeromq.ZmqSendString.debug@machine1:1235</subscribe>
+                <subscribe>org.agent.slang.in.zeromq.ZmqRecvStringComponent.debug@machine1:1234</subscribe>
+                <subscribe>org.agent.slang.out.zeromq.ZmqSendStringComponent.debug@machine1:1235</subscribe>
             </component>
 
             <component name="org.agent.slang.inout.TextComponent">
@@ -43,7 +43,7 @@
                 <subscribe>StringResponse.Text@machine1:1234</subscribe>
             </component>
 
-            <component name="org.agent.slang.in.zeromq.ZmqRecvString">
+            <component name="org.agent.slang.in.zeromq.ZmqRecvStringComponent">
                 <port>1234</port>
                 <scheduler>machine1:1222</scheduler>
                 <publish>StringResponse.Text@text.data</publish>
@@ -51,7 +51,7 @@
                 <inTopicName>vfoa_processed_gaze_data</inTopicName>
             </component>
 
-            <component name="org.agent.slang.out.zeromq.ZmqSendString">
+            <component name="org.agent.slang.out.zeromq.ZmqSendStringComponent">
                 <port>1235</port>
                 <scheduler>machine1:1222</scheduler>
                 <subscribe>TextComponent.text.response@machine1:1233</subscribe>

@@ -32,42 +32,22 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;
 import org.zeromq.ZContext;
 
-import org.ib.component.base.SinkComponent;
-import org.ib.component.model.ComponentConfig;
-import org.ib.component.annotations.ConfigureParams;
-import org.ib.data.GenericData;
-import org.ib.data.StringData;
-import org.ib.logger.Logger;
-
 /**
  * This class provides general message passing and socket functionalities in order to send string data using a ZeroMQ socket.
  * @author Mael Bouabdelli, mael.bouabdelli@insa-rouen.fr
  * @version 1, 11/13/19
  */
-
-@ConfigureParams( mandatoryConfigurationParams = {"outPort", "outTopicName"},
-                  inputDataTypes = GenericData.class)
-public class ZmqSendString extends SinkComponent {
-    private static final String PROP_OUT_PORT = "outPort";
-    private static final String PROP_OUT_TOPIC_NAME = "outTopicName";
+public class ZmqSendString {
     private String outPort;
     private String outTopicName;
 
     private ZContext context;
     private Socket publisher;
 
-    public ZmqSendString(String port, ComponentConfig config) {
-        super(port, config);
-    }
-
-    /**
-     * Setting up the component based on input configuration.
-     * @param config component configuration.
-     */
-    protected void setupComponent(ComponentConfig config) {
+    public ZmqSendString(String outputPort, String outputTopicName) {
         // Fetch parameters
-        outPort = config.getProperty(PROP_OUT_PORT);
-        outTopicName = config.getProperty(PROP_OUT_TOPIC_NAME);
+        outPort = outputPort;
+        outTopicName = outputTopicName;
 
         // Init jeromq
         context = new ZContext();
@@ -75,27 +55,9 @@ public class ZmqSendString extends SinkComponent {
         publisher.bind(String.format("tcp://*:%s", outPort));
     }
 
-    /**
-     * Managing input and output data in the class.
-     * @param data input data
-     */
-    protected void handleData(GenericData data) {
-        if (data instanceof StringData) {
-            Logger.log(this, Logger.INFORM, ((StringData)data).getData());
-            
-            String msg_to_send = String.format("%s %s", outTopicName, ((StringData)data).getData());
-            publisher.send(msg_to_send);
-        }
-    }
-
-    /**
-     * Checking type of input data
-     */
-    public void defineReceivedData() {
-        addInboundTypeChecker(GenericData.class);
-    }
-
-    public boolean act() {
-        return false;
+    public boolean SendMessage(String msg) {
+        String msg_to_send = String.format("%s %s", outTopicName, msg);
+        publisher.send(msg_to_send);
+        return true;
     }
 }
