@@ -38,6 +38,7 @@
                 <port>1221</port>
                 <config>../cns_services/cns_service_single_computer.xml</config>
             </service>
+
             <service name="org.ib.service.topic.TopicService">
                 <port>1220</port>
             </service>
@@ -48,6 +49,7 @@
                 <host>127.0.0.1</host>
                 <port>1221</port>
             </client>
+
             <client name="org.ib.service.topic.TopicClient">
                 <host>machine1</host>
                 <port>1220</port>
@@ -74,10 +76,9 @@
                 <scheduler>machine1:1222</scheduler>
                 <publish>AudioData.Text@voice.data</publish>
                 <subscribe>StringData.Text@machine1:1232</subscribe>
-                <voice>../cerevoice_files/cerevoice_suzanne_3.0.8_22k.voice</voice> <!-- You can use the CereVoice voice file you desire -->
-                <licenseFile>../cerevoice_files/license.lic</licenseFile> <!-- A license file is necessary to use this program -->
+                <voice>../cereproc_files/cerevoice_heather_3.0.8_22k.voice</voice> <!-- A CereProc voice file is necessary to use this component -->
+                <licenseFile>../cereproc_files/license.lic</licenseFile> <!-- A CereProc license file is necessary to use this component -->
             </component>
-
         </components>
     </profile>
 </project>

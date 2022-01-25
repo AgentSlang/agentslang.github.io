@@ -23,6 +23,22 @@ If everything's working fine, you should have this output in your terminal
 (INFORM)[org.ib.bricks.Test2] {id=2, language=none, data='Hello-t2:2'}
 (INFORM)[org.ib.bricks.Test2] {id=2, language=none, data='Hello-t1:2'}
 ```
+## CereProc (Text To Speech) Component
+
+For text to speech needs, you can use [CereProc](https://www.cereproc.com/). It's a proprietary and paid software, so you'll need to own a license and at least one voice file. You can add these files in the dedicated folder named **cereproc_files** inside **config**. Then, you'll need to modify the config file **cereproc_demo.xml** to indicate the correct path and name of these required files. These paths are indicated by the **voice** and **licenseFile** parameters.
+
+After, you can launch the script:
+```
+# Inside bin directory of AgentSlang installation folder
+cd ${AGENTSLANGINSTALLDIR}/bin
+
+# In GNU/Linux
+./AgentSlang -config ../config/test_configurations/cereproc_demo.xml -profile profile1
+
+# In Windows
+AgentSlang -config ../config/test_configurations/cereproc_demo.xml -profile profile1
+```
+A text terminal will appear, you can type the text you want to synthesise.
 
 # Advanced demos
 
