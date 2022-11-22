@@ -2,8 +2,11 @@ apply plugin: 'application'
 mainClassName = 'org.ib.component.ComponentRunner'
 
 repositories {
-    maven {url 'http://dl.bintray.com/marytts/marytts'}
-    maven {url 'http://dl.bintray.com/dfki-lt/maven'}
+    jcenter()
+    ivy {
+        url 'http://mary.dfki.de/repo'
+        layout 'maven'
+    }
 }
 
 dependencies {
@@ -31,9 +34,9 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-cache:4.5'
 
     // org.agent.slang.out.marytts.MaryComponent
-    compile 'de.dfki.mary:marytts-runtime:5.1.2'
-    ['de', 'en', 'it', 'ru', 'sv', 'te', 'tr'].each {runtime "de.dfki.mary:marytts-lang-$it:5.1.2"}
-    runtime 'de.dfki.mary:voice-cmu-slt-hsmm:5.1.2'
+    compile 'de.dfki.mary:marytts-runtime:5.2.1'
+    ['de', 'en', 'it', 'ru', 'sv', 'te', 'tr'].each {runtime "de.dfki.mary:marytts-lang-$it:5.2.1"}
+    runtime 'de.dfki.mary:voice-cmu-slt-hsmm:5.2.1'
 
     // org.agent.slang.in.videoconferencing.VCStreamer
     compile 'org.glassfish.grizzly:grizzly-http-server:2.3.23'
