@@ -32,56 +32,26 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;
 import org.zeromq.ZContext;
 
-import org.ib.component.base.LivingComponent;
-import org.ib.component.model.ComponentConfig;
-import org.ib.component.annotations.ConfigureParams;
-import org.ib.data.LanguageUtils;
-import org.ib.data.GenericData;
-import org.ib.data.StringData;
-import org.ib.logger.Logger;
-
-import java.util.Locale;
-
 /**
  * This class provides general message passing and socket functionalities in order to receive string data using a ZeroMQ socket.
  * @author Mael Bouabdelli, mael.bouabdelli@insa-rouen.fr
  * @version 1, 11/13/19
  */
 
-@ConfigureParams( mandatoryConfigurationParams = {"inPort", "inTopicName"},
-                  outputChannels = "text.data",
-                  outputDataTypes = StringData.class)
-public class ZmqRecvString extends LivingComponent
+public class ZmqRecvString
 {
     // Attributes
-    private static final String PROP_IN_PORT = "inPort";
-    private static final String PROP_IN_TOPIC_NAME = "inTopicName";
     private String inPort;
     private String inTopicName;
-
-    private static final String textChannel = "text.data";
-
     protected ZContext context;
     protected Socket subscriber;
-    private long messageID = 0;
 
     // Constructors - Destructors
-    public ZmqRecvString(String outboundPort, ComponentConfig config)
-    {
-        super(outboundPort, config);
-    }
-
-    // Methods
-
-    /**
-    * Setting up the component based on input configuration.
-    * @param config component configuration.
-    */
-    protected void setupComponent(ComponentConfig config)
+    public ZmqRecvString(String inputPort, String inputTopicName)
     {
         // Fetch parameters
-        inPort = config.getProperty(PROP_IN_PORT);
-        inTopicName = config.getProperty(PROP_IN_TOPIC_NAME);
+        inPort = inputPort;
+        inTopicName = inputTopicName;
 
         // Init jeromq
         context = new ZContext();
@@ -90,61 +60,13 @@ public class ZmqRecvString extends LivingComponent
         subscriber.subscribe(inTopicName.getBytes(ZMQ.CHARSET));
     }
 
-    public boolean act()
+    // Methods
+
+    public String recvMessage()
     {
         // Read envelope with address
         // recvStr is a blocking function (waits for a message to be received) if the ZMQ.NOBLOCK flag isn't used
         String messageReceived = subscriber.recvStr(ZMQ.NOBLOCK);
-
-        // If a message is received, we can process and transfer it
-        if (messageReceived != null)
-        {
-            String[] messageSplit = messageReceived.split(" ", 2);
-            String topic = messageSplit[0];
-            String message = messageSplit[1];
-
-            Logger.log(this, Logger.INFORM, String.format("from topic %s : %s", topic, message));
-            sendMessage(message);
-        }
-
-        return true;
-    }
-
-    /**
-     * Sends text message.
-     * @param message text message
-     */
-    protected void sendMessage(String message) {
-        publishData(textChannel, new StringData(getMessageID(), message, LanguageUtils.getLanguageCodeByLocale(Locale.US)));
-    }
-
-        /**
-     * Checking type of input data 
-     */
-    public void defineReceivedData() {}
-
-    /**
-     * Checking type of output data.
-     */
-    public void definePublishedData() {
-        addOutboundTypeChecker(textChannel, StringData.class);
-    }
-
-    /**
-     * Managing input and output data in the class.
-     * @param data input data
-     */
-    protected void handleData(GenericData data) {}
-
-    /**
-     * gets message id
-     * @return message id
-     */
-    private long getMessageID() {
-        messageID++;
-        if (messageID > Long.MAX_VALUE - 2) {
-            messageID = 0;
-        }
-        return messageID;
+        return messageReceived;
     }
 }
